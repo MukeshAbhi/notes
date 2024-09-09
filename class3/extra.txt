@@ -1,0 +1,30 @@
+const express = require("express");
+const app = express();
+
+let count = 0;
+
+function countNumOfRequests( req,res,next){
+    
+    count++;
+    console.log(count);
+    next();
+}
+
+app.use(countNumOfRequests);
+const start = new Date;
+const startTime = start.getTime();
+console.log(start);
+app.get('/',(req, res) => {
+    res.send("helloworld");
+});
+const middle = new Date;
+const middleTime =  middle.getTime();
+app.post('/',(req, res) => {
+    res.send("from post route");
+});
+
+const end = new Date;
+const endTime = end.getTime();
+let averageTime = (startTime + middleTime + endTime) / count;
+console.log(averageTime)
+app.listen(3000);
