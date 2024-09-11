@@ -1,0 +1,15 @@
+post request
+"
+/* 
+    const numberOfHealthyKidneys = johnKidneys.filter((kidney) => {
+        if (kidney.healthy){
+        return true;
+        }
+    }).length;
+    const numberOfUnhealthyKidneys = johnKidneys.filter((kidney) => {
+        if (!kidney.healthy){
+        return true;
+        }
+    }).length; 
+*/
+"
