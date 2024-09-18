@@ -10,7 +10,7 @@ mongoose.connect(
 const User = mongoose.model("User", {
   name: String,
   username: String,
-  pasword: String,
+  password: String,
 });
 
 const app = express();
@@ -39,16 +39,18 @@ app.post('/signup', async (req,res) => {
   const username = req.body.username;
   const password = req.body.password;
   const name = req.body.name;
+
   if(await userExists(username)){
     return res.json({
       msg : "User already exists"
     });
   } else {
     const userProfile = new User({
-      name: name,
       username: username,
       password: password,
+      name: name,
     })
+    
     await userProfile.save();
     res.status(200).json({msg: 'User profile successfuly CREATED'})
   }
@@ -57,7 +59,6 @@ app.post('/signup', async (req,res) => {
 app.post("/signin", async function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
-  const name = req.body.name;
 
   if (!(await userExists(username))) {
     return res.status(403).json({
@@ -65,6 +66,7 @@ app.post("/signin", async function (req, res) {
     });
   } else{
     const data = await userWithPassword(username,password);
+    
     if(!(data.length > 0)){
       return res.status(403).json({
         msg: 'Wrong Password'
@@ -99,4 +101,4 @@ app.get("/users", async function (req, res) {
   }
 });
 
-app.listen(3000);
+app.listen(3001);
