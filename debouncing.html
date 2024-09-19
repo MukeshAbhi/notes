@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        let timeout;
+        function debouncePopulateDiv(){
+            clearTimeout(timeout);
+             timeout = setTimeout(()=>{
+                populateDiv()
+            },1000);
+            //within 100milisecond if decouncePopulateDiv is called again stop the present clock and start a new clock
+        }
+        async function populateDiv(){
+            const a = document.getElementById("first").value;
+            const b = document.getElementById("second").value;
+            const element = document.getElementById("finalSum");
+
+            const response = await fetch("http://localhost:3000/sum/?a=" + a + "&b=" + b);
+            const ans = await response.text();
+            element.innerHTML= ans;
+        }
+    </script>
+    <title>Calculator</title>
+    <head>
+        <p></p>
+    </head>
+    <body>
+        <p><input oninput="debouncePopulateDiv()" id = "first" type="text" placeholder="First number"></p>
+        <p><input oninput="debouncePopulateDiv()" id = "second" type="text" placeholder="Second mumber"></p>
+        <div id = "finalSum"></div>
+    </body>
+</html>
