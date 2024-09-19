@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        async function populateDiv() {
+            const principal = document.getElementById("principal").value;
+            const rate = document.getElementById("rate").value;
+            const time = document.getElementById("time").value;
+            const response = await fetch("http://localhost:3000/interest?principal=" + principal+ "&rate=" + rate + "&time=" + time);
+            const ans = await response.json();
+            document.getElementById("interest").innerHTML = ans.interest;
+            document.getElementById("total").innerHTML = ans.total;
+        }
+    </script>
+    <title>Interest Calculator</title>
+    <body>
+        <p><input id="principal" type="text" placeholder="Principal"> </p>
+        <p><input id="rate" type="text" placeholder="Rate"> </p>
+        <p><input id="time" type="text" placeholder="Time in years"> </p>
+        <p><button onclick="populateDiv()">Calculate Interest</button></p>
+        <h2>Results:</h2>
+        <p><strong>Total:</strong> <span id="total"></span></p>
+        <p><strong>Interest:</strong> <span id="interest"></span></p>
+    </body>
+</html>

@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <script>
-        function populateDiv(){
-            const a = document.getElementById("first").value;
-            const b = document.getElementById("second").value;
-            const element = document.getElementById("finalSum")
-            element.innerHTML = parseInt(a) + parseInt(b);
-        }
-    </script>
-    <title>Calculator</title>
     <head>
-        <p></p>
+        <style>
+            .container {
+                background-color: aqua;
+                font-size: 100px;
+                padding: 20px;
+                margin: 100px;
+                color: green;
+            }
+        </style>
     </head>
     <body>
-        <p><input id = "first" type="text" placeholder="First number"></p>
-        <p><input id = "second" type="text" placeholder="Second mumber"></p>
-        <p><button onclick="populateDiv()">Calculate sum</button></p>
-        <div id = "finalSum"></div>
+        <div class = "container" id = "container1">
+            hi there 1
+        </div>
+        <div class = "container" id = "container2">
+            hi there 2
+        </div>
     </body>
-</html>
+</html> 
