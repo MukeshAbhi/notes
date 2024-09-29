@@ -4,58 +4,107 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 
-function App() {
-
-  const [boxs,setBoxs] = useState(Array(9).fill(null));
-  const [isX, setIsX] = useState(true);
+function Board({isX,boxs,onPlay}) {
 
   function onClickhandler(i){
-    const newBox = boxs.slice();
     if(calculateWinner(boxs) || boxs[i]){
       return;
     }
+    const newBoxes = boxs.slice();
     if(isX){
-      newBox[i]="X";
+      newBoxes[i]="X";
     }else{
-      newBox[i]="O"
+      newBoxes[i]="O"
     }
-    setIsX(!isX);
-    setBoxs(newBox);
+    onPlay(newBoxes); 
+  }
 
-    const winner = calculateWinner(boxs);
+
+  const winner = calculateWinner(boxs);
     let statusOfPlayer;
     if(winner){
       statusOfPlayer = "Winner : " + winner;
     } else {
       statusOfPlayer = "Next player: " + (isX ? "X" : "O") ;
-    } 
-  }
+    }
 
   return (
     <>
-      <div className='player'>{statusOfPlayer}</div>
-      <div className='row'>
-        <Box value = {boxs[0]} onBoxClick={() => onClickhandler(0)} />
-        <Box value = {boxs[1]} onBoxClick={() => onClickhandler(1)} />
-        <Box value = {boxs[2]} onBoxClick={() => onClickhandler(2)} />
+    <div className='board'>
+      <div className='player'>
+        {statusOfPlayer}
       </div>
-      <div className='row'>
-        <Box value = {boxs[3]} onBoxClick={() => onClickhandler(3)} />
-        <Box value = {boxs[4]} onBoxClick={() => onClickhandler(4)} />
-        <Box value = {boxs[5]} onBoxClick={() => onClickhandler(5)} />
-      </div>
-      <div className='row'>
-        <Box value = {boxs[6]} onBoxClick={() => onClickhandler(6)} />
-        <Box value = {boxs[7]} onBoxClick={() => onClickhandler(7)} />
-        <Box value = {boxs[8]} onBoxClick={() => onClickhandler(8)} />
-      </div>
+        <div className='row'>
+          <Box value = {boxs[0]} onBoxClick={() => onClickhandler(0)} />
+          <Box value = {boxs[1]} onBoxClick={() => onClickhandler(1)} />
+          <Box value = {boxs[2]} onBoxClick={() => onClickhandler(2)} />
+        </div>
+        <div className='row'>
+          <Box value = {boxs[3]} onBoxClick={() => onClickhandler(3)} />
+          <Box value = {boxs[4]} onBoxClick={() => onClickhandler(4)} />
+          <Box value = {boxs[5]} onBoxClick={() => onClickhandler(5)} />
+        </div>
+        <div className='row'>
+          <Box value = {boxs[6]} onBoxClick={() => onClickhandler(6)} />
+          <Box value = {boxs[7]} onBoxClick={() => onClickhandler(7)} />
+          <Box value = {boxs[8]} onBoxClick={() => onClickhandler(8)} />
+        </div>
+     </div>
+      
     </>
   )
 }
 
+ function App(){
+  //Game function 
+  const [history,setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrrentMove] = useState(0);
+  const isX = currentMove % 2 === 0;
+  const currentBoxsNo = history[currentMove];
+
+  function handlePlay(newBoxes){
+    const newHistory = [...history.slice(0,currentMove + 1), newBoxes]
+    setHistory(newHistory);
+    setCurrrentMove(newHistory.length -1);
+   //console.log(history);
+  }
+
+  function jumpTo(nextMove){
+    setCurrrentMove(nextMove);
+  }
+
+  const moves = history.map((boxs, move) =>{
+    let description;
+    if (move > 0){
+      description = 'Go to move #' + move;
+    } else {
+      description = 'Go to game start';
+    }
+    //console.log(move);
+    return (
+      <li key={move}>
+         <button onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    );
+  });
+
+  return(
+    <div className='game'>
+      <div className='game-board'>
+        <Board isX={isX} boxs={currentBoxsNo} onPlay={handlePlay}/>
+      </div>
+      <div className='game-info'>
+        <ol>{moves}</ol>
+      </div>
+    </div>
+  );
+ }
+
 function Box({value,onBoxClick}){
   return (
-    <button className='unit-box' onClick={onBoxClick}>{value}</button>
+    <button className='unit-box' onClick={onBoxClick}>
+      {value}
+    </button>
   );
 }
 
