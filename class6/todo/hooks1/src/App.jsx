@@ -5,16 +5,15 @@ import './App.css'
 
 function App() {
   const [idno, setIdno] =useState();
-  function onClickHandler(i){
-    setIdno(i);
-  }
+
   return (
     <>
-    <Button num={1} clickHandler={()=> onClickHandler(1)} />
-    <Button num={2} clickHandler={()=> onClickHandler(2)} />
-    <Button num={3} clickHandler={()=> onClickHandler(3)} />
-    <Button num={4} clickHandler={()=> onClickHandler(4)} />
-    <Button num={5} clickHandler={()=> onClickHandler(5)} />
+    <Button num={1} clickHandler={()=> setIdno(1)} />
+    <Button num={2} clickHandler={()=> setIdno(2)} />
+    <Button num={3} clickHandler={()=> setIdno(3)} />
+    <Button num={4} clickHandler={()=> setIdno(4)} />
+    <Button num={5} clickHandler={()=> setIdno(5)} />
+    <div className='ID'>Id : {idno}</div>
     <Todo id={idno}></Todo>
     </>
   )
