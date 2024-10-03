@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { memo, useContext, useState } from "react"
 import { CountContext, SetCountContext } from "../Context";
 import { set } from "mongoose";
 
@@ -17,12 +17,14 @@ function App() {
   )
 }
 
-function Count({ setCount}) {
+const Count = memo(function Count() {
+  console.log("rerender")
   return <div>
     <CountRenderer  />
-    <Buttons  setCount={setCount} />
+    <Buttons  />
   </div>
-}
+})
+
 
 function CountRenderer() {
   const count = useContext(CountContext)
