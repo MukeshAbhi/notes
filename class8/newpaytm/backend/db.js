@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://abhimukesh284:qZ4cZSZXTQO4aWD5@cluster0.kjhif.mongodb.net/paytm');
 
+// Create a Schema for Users
 const userSchema = mongoose.Schema({
     username:{
         type:String,
@@ -31,8 +32,24 @@ const userSchema = mongoose.Schema({
     }
 })
 
+// Create a Schema for Accounts 
+const accountSchema = mongoose.Schema({
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,// referance to user model
+        ref:'User',
+        required: true
+    },
+    balance:{
+        type:Number,
+        required: true
+    }
+    
+})
+
 const User = mongoose.model('User',userSchema);
+const Account = mongoose.model('Account',accountSchema)
 
 module.exports = {
-    User
+    User,
+    Account
 }
