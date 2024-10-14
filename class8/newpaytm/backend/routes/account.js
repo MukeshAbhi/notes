@@ -28,16 +28,18 @@ router.post('/transfer',authMiddleware,async(req,res)=>{
 
     if(!account||account.balance < amount ){
         await session.abortTransaction();
-        res.status(400).json({
+        return res.status(400).json({
             message:"Insufficient balance"
         })
     }
 
+    
     const toAccount = await Account.findOne({userId:to}).session(session);
+    
 
     if(!toAccount){
         await session.abortTransaction();
-        res.status(400).json({
+        return res.status(400).json({
             message:"Invalid Account"
         })
     }
@@ -49,8 +51,6 @@ router.post('/transfer',authMiddleware,async(req,res)=>{
     //Commit the transaction
     await session.commitTransaction();
 
-    await session.endSession();
-    
     res.json({
         message:"Transfer successful"
     })

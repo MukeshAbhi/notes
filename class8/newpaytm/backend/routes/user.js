@@ -94,7 +94,7 @@ const updateSchema = zod.object({
 });
 
 // Update user route
-router.put('/', authMiddleware,async(req,res)=>{
+router.put('/up', authMiddleware,async(req,res)=>{
     const body = req.body;
     const {success} = updateSchema.safeParse(body);
     if(!success){
