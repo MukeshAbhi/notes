@@ -1,0 +1,20 @@
+<div>
+                <div className="font-bold text-4xl text-center my-5">Sign up</div>
+                <div className="text-slate-500 ml-[550px] w-60">Enter your information to create an account</div>
+                <div className="ml-[525px] mt-5 font-semibold">First Name</div>
+                <input placeholder="John" type="text" className="ml-[525px] mt-2 border-2 py-1 px-2 w-60" />
+                <div className="ml-[525px] mt-3 font-semibold">Last Name</div>
+                <input placeholder="Doe" type="text" className="ml-[525px] mt-2 border-2 py-1 px-2 w-60" />
+                <div className="ml-[525px] mt-3 font-semibold">Email</div>
+                <input placeholder="example@gmail.com" type="text" className="ml-[525px] mt-3 border-2 py-1 px-2 w-60" />
+                <div className="ml-[525px] mt-3 font-semibold">Password</div>
+                <input placeholder="123456" type="text" className="ml-[525px] mt-2 border-2 py-1 px-2 w-60" />
+                <div>
+                    <button className="ml-[525px] mt-3 bg-slate-600 text-white py-2 px-4 rounded hover:bg-slate-700 w-60">
+                        Signup
+                    </button>
+                </div>
+                <div  className="ml-[530px] mt-5 text-sm font-medium">
+                    Already have an account? Signin
+                </div>
+            </div>
